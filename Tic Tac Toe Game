@@ -1,0 +1,250 @@
+#Dev Patel Games
+# Tic Tac Toe Game
+#Dev Patel
+#Tic Tac Toe Game
+
+import pygame
+
+pygame.init()
+
+win = pygame.display.set_mode((550,550))
+
+pygame.display.set_caption("Dev's Tic Tac Toe Game")
+
+board = [[0,0,0],[0,0,0],[0,0,0]]
+
+#Top 3 Rectangles
+firstrect = pygame.draw.rect(win, (255,255,255), (25,25,150,150))
+
+tworect = pygame.draw.rect(win, (255,255,255), (200,25,150,150))
+
+threerect = pygame.draw.rect(win, (255,255,255), (375,25,150,150))
+
+#Middle 3 Rectangles
+fourrect = pygame.draw.rect(win, (255,255,255), (25,200,150,150))
+
+fiverect = pygame.draw.rect(win, (255,255,255), (200,200,150,150))
+
+sixrect = pygame.draw.rect(win, (255,255,255), (375,200,150,150))
+
+#Bottom 3 Rectangles
+sevenrect = pygame.draw.rect(win, (255,255,255), (25,375,150,150))
+
+eightrect = pygame.draw.rect(win, (255,255,255), (200,375,150,150))
+
+ninerect = pygame.draw.rect(win, (255,255,255), (375,375,150,150))
+
+run = True
+
+draw_object = "rect"
+
+rectone_open = True
+recttwo_open = True
+rectthree_open = True
+rectfour_open = True
+rectfive_open = True
+rectsix_open = True
+rectseven_open = True
+recteight_open = True
+rectnine_open = True
+
+def win_check(num):
+#checks if you have won horizontally
+    for row in board:
+        for tile in row:
+            if tile == num:
+                continue
+            else:
+                break
+        else:
+            return True
+#Checks if you have won vertically
+    for column in range(3):
+        for row in board:
+            if row[column] == num:
+                continue
+            else:
+                break
+        else:
+            return True
+#Checks is you have won diagnoally
+    for tile in range(3):
+        if board[tile][tile] == num:
+            continue
+        else:
+            break
+    else:
+        return True
+
+number_one = 0
+won = False          
+while run:
+    pygame.time.delay(100)
+    
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
+            
+#The Reset Screen Command
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                rectone_open = True
+                recttwo_open = True
+                rectthree_open = True
+                rectfour_open = True
+                rectfive_open = True
+                rectsix_open = True
+                rectseven_open = True
+                recteight_open = True
+                rectnine_open = True
+
+                #Top 3 Rectangles
+                firstrect = pygame.draw.rect(win, (255,255,255), (25,25,150,150))
+
+                tworect = pygame.draw.rect(win, (255,255,255), (200,25,150,150))
+
+                threerect = pygame.draw.rect(win, (255,255,255), (375,25,150,150))
+
+                #Middle 3 Rectangles
+                fourrect = pygame.draw.rect(win, (255,255,255), (25,200,150,150))
+
+                fiverect = pygame.draw.rect(win, (255,255,255), (200,200,150,150))
+
+                sixrect = pygame.draw.rect(win, (255,255,255), (375,200,150,150))
+
+                #Bottom 3 Rectangles
+                sevenrect = pygame.draw.rect(win, (255,255,255), (25,375,150,150))
+
+                eightrect = pygame.draw.rect(win, (255,255,255), (200,375,150,150))
+
+                ninerect = pygame.draw.rect(win, (255,255,255), (375,375,150,150))
+
+        if event.type == pygame.MOUSEBUTTONUP:
+            pos = pygame.mouse.get_pos()
+            
+#Top 3 Rectangles in Rectangles
+            if won != True:
+                if firstrect.collidepoint(pos) and rectone_open:
+                    if draw_object == "rect":
+                        pygame.draw.rect(win, (255,0,0), (50,50,100,100))
+                        draw_object = "circle"
+                        board[0][0] = 1
+                    else:
+                        pygame.draw.circle(win, (0,255,0), (100,100), 50)
+                        draw_object = "rect"
+                        board[0][0] = 2
+                    rectone_open = False
+
+                    
+                if tworect.collidepoint(pos) and recttwo_open:
+                    if draw_object == "rect":
+                        pygame.draw.rect(win, (255,0,0), (225,50,100,100))
+                        draw_object = "circle"
+                        board[0][1] = 1
+                    else:
+                        pygame.draw.circle(win, (0,255,0), (275,100), 50)
+                        draw_object = "rect"
+                        board[0][1] = 2
+                    recttwo_open = False
+
+                if threerect.collidepoint(pos) and rectthree_open:
+                    if draw_object == "rect":
+                        pygame.draw.rect(win, (255,0,0), (400,50,100,100))
+                        draw_object = "circle"
+                        board[0][2] = 1
+                    else:
+                        pygame.draw.circle(win, (0,255,0), (450,100), 50)
+                        draw_object = "rect"
+                        board[0][2] = 2
+                    rectthree_open = False
+
+    #Middle 3 Rectangles in Rectangles
+                        
+                if fourrect.collidepoint(pos) and rectfour_open:
+                    if draw_object == "rect":
+                        pygame.draw.rect(win, (255,0,0), (50,225,100,100))
+                        draw_object = "cirlce"
+                        board[1][0] = 1
+                    else:
+                        pygame.draw.circle(win, (0,255,0), (100,275), 50)
+                        draw_object = "rect"
+                        board[1][0] = 2
+                    rectfour_open = False
+
+                        
+                if fiverect.collidepoint(pos) and rectfive_open:
+                    if draw_object == "rect":
+                        pygame.draw.rect(win, (255,0,0), (225,225,100,100))
+                        draw_object = "cricle"
+                        board[1][1] = 1
+                    else:
+                        pygame.draw.circle(win, (0,255,0), (275,275), 50)
+                        draw_object = "rect"
+                        board[1][1] = 2
+                    rectfive_open = False
+
+                    
+                if sixrect.collidepoint(pos) and rectsix_open:
+                    if draw_object == "rect":
+                        pygame.draw.rect(win, (255,0,0), (400,225,100,100))
+                        draw_object = "circle"
+                        board[1][2] = 1
+                    else:
+                        pygame.draw.circle(win, (0,255,0), (450,275), 50)
+                        draw_object = "rect"
+                        board[1][2] = 2
+                    rectsix_open = False
+                    
+    #Bottom 3 Rectangles in Rectangles
+                        
+                if sevenrect.collidepoint(pos) and rectseven_open:
+                    if draw_object == "rect":
+                        pygame.draw.rect(win, (255,0,0), (50,400,100,100))
+                        draw_object = "circle"
+                        board[2][0] = 1
+                    else:
+                        pygame.draw.circle(win, (0,255,0), (100,450), 50)
+                        draw_object = "rect"
+                        board[2][0] = 2
+                    rectseven_open = False
+
+                    
+                if eightrect.collidepoint(pos)and recteight_open:
+                    if draw_object == "rect":
+                        pygame.draw.rect(win, (255,0,0), (225,400,100,100))
+                        draw_object = "cirlce"
+                        board[2][1] = 1
+                    else:
+                        pygame.draw.circle(win, (0,255,0), (275,450), 50)
+                        draw_object = "rect"
+                        board[2][1] = 2
+                    recteight_open = False
+
+                        
+                if ninerect.collidepoint(pos) and rectnine_open:
+                    if draw_object == "rect": 
+                        pygame.draw.rect(win, (255,0,0), (400,400,100,100))
+                        draw_object = "circle"
+                        board[2][2] = 1
+                    else: 
+                        pygame.draw.circle(win, (0,255,0), (450,450), 50)
+                        draw_object = "rect"
+                        board[2][2] = 2
+                    rectnine_open = False
+
+    if win_check(1):
+        won = True
+        while number_one != 1:
+            print ("Square Won!!!")
+            number_one += 1
+        
+      
+    if win_check(2):
+        won = True
+        while number_one != 1:
+            print ("Cirlce Won!!!")
+            number_one += 1
+
+    pygame.display.update()
+
+pygame.quit()
