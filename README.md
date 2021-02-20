@@ -1,1 +1,146 @@
 # Dev-Patel-Games
+# Snake Game
+
+import turtle
+import time
+import random
+
+delay = 0.1
+score = 0
+highscore = 0
+
+#Screen
+win = turtle.Screen()
+win.title ("Snake Game")
+win.bgcolor("black")
+win.setup(width = 600, height = 600)
+win.tracer(0)
+
+#Snake Head
+head = turtle.Turtle()
+head.speed(0)
+head.shape("square")
+head.color("white")
+head.penup()
+head.goto(0,0)
+head.direction = "stop"
+
+#Things to grow bigger
+food = turtle.Turtle()
+food.speed(0)
+food.shape("circle")
+food.color("blue")
+food.penup()
+food.goto(0,100)
+
+pen = turtle.Turtle()
+pen.speed(0)
+pen.shape("square")
+pen.color("white")
+pen.penup()
+pen.hideturtle()
+pen.goto(0,260)
+pen.write("Score: 0", align="center", font = ("Courier", 24,"normal" ))
+
+bodyparts = []
+
+def up ():
+    if head.direction !="down":
+        head.direction = "up"
+
+def down ():
+    if head.direction !="up":
+        head.direction = "down"
+
+def left ():
+    if head.direction !="right":
+        head.direction = "left"
+
+def right ():
+    if head.direction !="left":
+        head.direction = "right"
+    
+def moving():
+    if head.direction == "up":
+        y = head.ycor()
+        head.sety(y+20)
+
+    if head.direction == "down":
+        y = head.ycor()
+        head.sety(y-20)
+                  
+    if head.direction == "left":
+        x = head.xcor()
+        head.setx(x-20)
+        
+    if head.direction == "right":
+        x = head.xcor()
+        head.setx(x+20)
+win.listen()
+win.onkeypress(up, "w")
+win.onkeypress(down, "s")
+win.onkeypress(left, "a")
+win.onkeypress(right, "d")
+
+#Main Loop
+while True:
+    win.update()
+
+    if head.xcor() > 290 or head.xcor()<-290 or head.ycor()>290 or head.ycor()<-290:
+       time.sleep(0.25)
+       head.goto(0,0)
+       head.direction = "stop"
+       score = 0
+       pen.clear()
+       pen.write("Score: {}".format(score), align="center", font = ("Courier", 24,"normal" ))
+
+
+       for new_body in bodyparts:
+           new_body.goto(1000,1000)
+           
+       bodyparts.clear()
+
+    if head.distance(food) < 20:
+        x = random.randint(-290,290)
+        y = random.randint(-290,290)
+        food.goto(x,y)
+        
+        new_body = turtle.Turtle()
+        new_body.speed(0)
+        new_body.shape("square")
+        new_body.color("white")
+        new_body.penup()
+        bodyparts.append(new_body)
+
+        score += 1
+        pen.clear()
+        pen.write("Score: {}".format(score), align="center", font = ("Courier", 24,"normal" ))
+
+    for index in range(len(bodyparts)-1,0,-1):
+        x = bodyparts[index -1].xcor()
+        y = bodyparts[index-1].ycor()
+        bodyparts[index].goto(x,y)
+        
+    if len(bodyparts) > 0:
+        x = head.xcor()
+        y = head.ycor()
+        bodyparts[0].goto(x,y)
+        
+    moving()
+
+    for new_body in bodyparts:
+        if new_body.distance(head) < 20:
+            time.sleep(0.25)
+            head.goto(0,0)
+            head.direction = "stop"
+
+            score = 0
+            pen.clear()
+            pen.write("Score: {}".format(score), align="center", font = ("Courier", 24,"normal" ))
+
+            for new_body in bodyparts:
+               new_body.goto(1000,1000)
+
+            bodyparts.clear()
+        time.sleep(delay)
+win.mainloop()
